@@ -1,49 +1,40 @@
 import React from 'react';
+import RouteSelect from './RouteSelect';
 
 const parser = require('xml-js');
 
 class RouteForm extends React.Component {
     state = {
-        routes: [
-            {
-                name: '',
-                number: ''
-            }
-        ]
+        routes: []
     }
 
     componentDidMount() {
+        let routeList = [];
         fetch("https://svc.metrotransit.org/NexTrip/Routes")
-            .then((response) => response.text())
-            .then(response => {
-                const parseResponse = JSON.parse(parser.xml2json(response, {compact: true, spaces: 4}));
-                console.log(parseResponse.ArrayOfNexTripRoute.NexTripRoute);
-                const res = parseResponse.ArrayOfNexTripRoute.NexTripRoute;
-                
-                const mapRoutes = res.map(route => { return {route: route.Route._text, display: route.Description._text  }});
-
-
-
-                console.log(mapRoutes); //***** Pull out route numbers */
-
-
-
-                this.setState({ routes: [{route: '', display: '(Select a route)'}].concat(mapRoutes) });
-            }).catch(error => {
+            .then(response => { 
+                return response.text();
+            }).then(response => {
+                //console.log(JSON.parse(parser.xml2json(response, {compact: true, spaces: 4})))
+                return JSON.parse(parser.xml2json(response, {compact: true, spaces: 4}));
+            }).then(response => {
+                const res = response.ArrayOfNexTripRoute.NexTripRoute;
+                routeList = res.map((route) => {
+                    return route
+                });
+                this.setState({
+                    routes: routeList
+                });
+            })
+            .catch(error => {
                 console.log(error);
             });
     }
 
     render() {
         return (
-            <>
-                <select>
-                    {this.state.routes.map((route) => <option key={route.route} value={route.route}>{route.display}</option>)}
-                </select>
-            </>
+            <RouteSelect state={this.state} />
         );
     }
-
-}
+};
 
 export default RouteForm;
