@@ -22,8 +22,13 @@ class RouteForm extends React.Component {
                 
                 const mapRoutes = res.map(route => { return {route: route.Route._text, display: route.Description._text  }});
 
-                console.log(mapRoutes);
-                this.setState({ routes: [{routes: '', display: '(Select a route)'}].concat(mapRoutes) });
+
+
+                console.log(mapRoutes); //***** Pull out route numbers */
+
+
+
+                this.setState({ routes: [{route: '', display: '(Select a route)'}].concat(mapRoutes) });
             }).catch(error => {
                 console.log(error);
             });
