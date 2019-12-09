@@ -24,6 +24,7 @@ class RouteForm extends React.Component {
                 this.setState({
                     routes: routeList
                 });
+
             })
             .catch(error => {
                 console.log(error);
@@ -32,7 +33,7 @@ class RouteForm extends React.Component {
 
     render() {
         return (
-            <RouteSelect state={this.state} />
+            this.state.routes && <RouteSelect routes={this.state.routes} />  
         );
     }
 };
