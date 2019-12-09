@@ -24,18 +24,15 @@ const RouteSelect = props => {
             .then(response => { 
                 return response.text();
             }).then(response => {
-                //console.log(JSON.parse(parser.xml2json(response, {compact: true, spaces: 4})))
                 return JSON.parse(parser.xml2json(response, {compact: true, spaces: 4}));
-            }).then(response => {
+            }).then(response => { // offending block
                 directions = response.ArrayOfTextValuePair.TextValuePair;
-                console.log(directions);
+                // console.log(directions);
+                setRouteDirection(directions);    
             })
             .catch(error => {
                 console.log(error);
             });
-
-
-        //console.log(num);
     }
 
     const routeOptions = routes.map(route => <option key={route.Route._text}>{route.Description._text}</option>);
