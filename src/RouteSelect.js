@@ -1,11 +1,12 @@
 import React, { useState, Fragment } from 'react';
 
+const parser = require('xml-js');
+
 const RouteSelect = props => {
     const { routes } = props;
     
     const [selectedRouteName, setRouteName] = useState('');
-    const [selectedRouteNumber, setRouteNumber] = useState('');
-
+    const [selectedRouteDirection, setRouteDirection] = useState('');
 
     //console.log(routes);
 
@@ -13,12 +14,28 @@ const RouteSelect = props => {
         setRouteName({ name: event.target.value });
     }
 
-    const getRouteNumber = (routeName) => {
-        const rName = selectedRouteName;
+    const getRouteDirection = () => {
 
         const filteredRoute = routes.filter(route => route.Description._text === selectedRouteName.name);
+        const num = filteredRoute[0].Route._text;
 
-        console.log(filteredRoute);
+        let directions = [];
+        fetch(`https://svc.metrotransit.org/NexTrip/Directions/${num}`)
+            .then(response => { 
+                return response.text();
+            }).then(response => {
+                //console.log(JSON.parse(parser.xml2json(response, {compact: true, spaces: 4})))
+                return JSON.parse(parser.xml2json(response, {compact: true, spaces: 4}));
+            }).then(response => {
+                directions = response.ArrayOfTextValuePair.TextValuePair;
+                console.log(directions);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+
+        //console.log(num);
     }
 
     const routeOptions = routes.map(route => <option key={route.Route._text}>{route.Description._text}</option>);
@@ -28,7 +45,7 @@ const RouteSelect = props => {
             <select onChange={onChangeHandler}>
                 {routeOptions}
             </select>
-        {selectedRouteName ? getRouteNumber() : null} 
+        {selectedRouteName ? getRouteDirection() : null} 
         </Fragment>
     );
 };
