@@ -5,7 +5,6 @@ const parser = require('xml-js');
 const RouteInfo = props => {
     const { dir, num, name } = props.location.state[0];
 
-    console.log(Object.getOwnPropertyNames(name));
     const [routeStops, setRouteStops] = useState('');
 
     useEffect(() => {
@@ -52,7 +51,7 @@ const RouteInfo = props => {
         <>
             <button onClick={() => props.history.goBack()}>Back</button>
             <p>Route Info</p>
-            {name}
+            {name.name}
             {stops}
         </>
     );

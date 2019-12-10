@@ -81,7 +81,7 @@ const RouteSelect = props => {
             {dirs}
             <Link to={{
                 pathname: '/routeinfo',
-                state: [{dir: routeDirection, num: selectedRouteNumber, name: selectedRouteName.name }]
+                state: [{dir: routeDirection, num: selectedRouteNumber, name: selectedRouteName }]
             }}>
                 <button className="btn">View route</button>
             </Link>
