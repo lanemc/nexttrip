@@ -1,9 +1,23 @@
 import React, { useState, useEffect } from 'react';
+import BannerHeader from './BannerHeader';
 
 const parser = require('xml-js');
 
 const RouteInfo = props => {
     const { dir, num, name } = props.location.state[0];
+
+    const directions = [
+        { 1: 'SOUTHBOUND' },
+        { 2: 'EASTBOUND' },
+        { 3: 'WESTBOUND' },
+        { 4: 'NORTHBOUND' }
+    ];
+
+    console.log(Object.getOwnPropertyNames(directions));
+
+    const filteredDir = directions.filter(direction => 
+        direction.key === dir
+    );
 
     const [routeStops, setRouteStops] = useState('');
 
@@ -49,9 +63,11 @@ const RouteInfo = props => {
 
     return (
         <>
+            <BannerHeader />
             <button onClick={() => props.history.goBack()}>Back</button>
             <p>Route Info</p>
             {name.name}
+            {filteredDir}
             {stops}
         </>
     );
