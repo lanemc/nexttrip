@@ -58,7 +58,7 @@ const RouteInfo = props => {
         <>
             <BannerHeader />
             <button onClick={() => props.history.goBack()}>Back</button>
-            <h1>Route Info</h1>
+            <h1 className="pageHeading">Route Info</h1>
             {name.name}
             {directionName[0].rName}
             {stops}
