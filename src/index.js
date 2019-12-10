@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import RouteForm from './RouteForm';
+import logo from './img/metro-transit-logo.png';
 import './index.css';
 
 class App extends React.Component {
@@ -9,7 +10,7 @@ class App extends React.Component {
         return (
             <div className="app">
                 <div className="banner">
-                    <img className="logo" src="" alt="" />
+                    <img className="logo" src={logo} alt="metro-transit-logo" />
                     <img className="accent" src="" alt="" />
                 </div>
                 <h1 className="pageHeading" >Find bus route information</h1>

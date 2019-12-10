@@ -1,5 +1,6 @@
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 
 module.exports = {
     entry: './src/index.js',
@@ -12,11 +13,25 @@ module.exports = {
     module: {
         rules: [
           {
-             test: /\.js$/,
-             exclude: /node_modules/,
-             use: {
-                loader: 'babel-loader'
-              }
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: "babel-loader",
+            query: {
+              presets: ["@babel/preset-env", "@babel/preset-react"]
+            }
+          },
+          {
+            test: /\.css$/,
+            use: [
+              'style-loader',
+              'css-loader'
+            ]
+          },
+          {
+            test: /\.(png|svg|jpg|gif)$/,
+            use: [
+              'file-loader'
+            ]
           }
         ]
     },
