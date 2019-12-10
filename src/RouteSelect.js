@@ -14,20 +14,17 @@ const RouteSelect = props => {
 
     const routeOptions = routes.map(route => <option key={route.Route._text}>{route.Description._text}</option>);
 
-    //console.log(routes);
-
     const onChangeSelect = event => {
-
         setRouteName({ name: event.target.value });
-
     }
 
     useEffect(() => {
         if (selectedRouteName) {
-            getRouteDirection(); // eslint-disable-line react-hooks/exhaustive-deps
+            getRouteDirection();
         }
     }, [selectedRouteName.name]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    // Get the ordinal route directions for the selected route
     const getRouteDirection = () => {
 
         const filteredRoute = routes.filter(route => 
@@ -46,33 +43,28 @@ const RouteSelect = props => {
                 return JSON.parse(parser.xml2json(response, {compact: true, spaces: 4}));
             }).then(response => {
                 directions = response.ArrayOfTextValuePair.TextValuePair;
-                // console.log(directions);
-                setRouteDirection(directions);    
+                setRouteDirection(directions);  
             })
             .catch(error => {
                 console.log(error);
             });
-
-        //console.log(selectedRouteDirection[0].text); // This logged state is one value behind the selected option
     }
 
     const onChangeRadio = event => {
         setDirection(event.target.value);
-
     }
 
-    let dirs = null;
+    let directions = null;
     if(selectedRouteDirection) {
-        console.log(selectedRouteDirection);
-        dirs = (
+        directions = (
             <div>
-                {selectedRouteDirection.map(dir => {
+                {selectedRouteDirection.map(direction => {
                     return ( 
                         <RouteDirection
-                            id={dir.Value._text}
-                            key={dir.Value._text}
-                            text={dir.Text._text}
-                            value={dir.Value._text}
+                            id={direction.Value._text}
+                            key={direction.Value._text}
+                            text={direction.Text._text}
+                            value={direction.Value._text}
                             changed={onChangeRadio}
                         />
                     );
@@ -86,12 +78,13 @@ const RouteSelect = props => {
             <select onChange={onChangeSelect}>
                 {routeOptions}
             </select>
-            {dirs}
+            {directions}
             <Link to={{
                 pathname: '/routeinfo',
-                state: [{dir: routeDirection, num: selectedRouteNumber }]
-            }}
-            ><button className="btn">View route</button></Link>
+                state: [{dir: routeDirection, num: selectedRouteNumber, name: selectedRouteName }]
+            }}>
+                <button className="btn">View route</button>
+            </Link>
         </Fragment>
     );
 };
