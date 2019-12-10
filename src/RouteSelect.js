@@ -1,6 +1,9 @@
 import React, { useState, Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RouteDirection from './RouteDirection';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const parser = require('xml-js');
 
@@ -58,17 +61,21 @@ const RouteSelect = props => {
     if(selectedRouteDirection) {
         directions = (
             <div>
-                {selectedRouteDirection.map(direction => {
-                    return ( 
-                        <RouteDirection
-                            id={direction.Value._text}
-                            key={direction.Value._text}
-                            text={direction.Text._text}
-                            value={direction.Value._text}
-                            changed={onChangeRadio}
-                        />
-                    );
-                })}
+                <FormControl component="fieldset" className="">
+                    <FormLabel component="legend">Select route direction</FormLabel>
+                    <RadioGroup aria-label="gender" name="gender1" onChange={onChangeRadio}>
+                        {selectedRouteDirection.map(direction => {
+                            return (
+                                <RouteDirection
+                                    id={direction.Value._text}
+                                    key={direction.Value._text}
+                                    text={direction.Text._text}
+                                    value={direction.Value._text}  
+                                />
+                            );
+                        })}
+                    </RadioGroup>
+                </FormControl>
             </div>
         );
     }
@@ -78,12 +85,14 @@ const RouteSelect = props => {
             <select onChange={onChangeSelect}>
                 {routeOptions}
             </select>
-            {directions}
+
+                    {directions}
+            
             <Link to={{
                 pathname: '/routeinfo',
                 state: [{dir: routeDirection, num: selectedRouteNumber, name: selectedRouteName }]
             }}>
-                <button className="btn">View route</button>
+                <button className="btn" disabled={!routeDirection}>View route</button>
             </Link>
         </Fragment>
     );

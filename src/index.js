@@ -17,7 +17,7 @@ class App extends React.Component {
         return (
             <div className="app">
                 <BannerHeader />
-                <h1 className="pageHeading" >Find bus route information</h1>
+                <h1 className="pageHeading">Find bus route information</h1>
                 <RouteForm />
             </div>
         );
