@@ -8,6 +8,7 @@ const RouteSelect = props => {
     const { routes } = props;
 
     const [selectedRouteName, setRouteName] = useState('');
+    const [selectedRouteNumber, setRouteNumber] = useState('');
     const [selectedRouteDirection, setRouteDirection] = useState('');
     const [routeDirection, setDirection] = useState('');
 
@@ -34,6 +35,8 @@ const RouteSelect = props => {
         );
 
         const num = filteredRoute[0].Route._text;
+        
+        setRouteNumber(num);
 
         let directions = [];
         fetch(`https://svc.metrotransit.org/NexTrip/Directions/${num}`)
@@ -58,12 +61,7 @@ const RouteSelect = props => {
 
     }
 
-    const handleSubmit = event => {
-        alert(routeDirection);
-    }
-
     let dirs = null;
-
     if(selectedRouteDirection) {
         console.log(selectedRouteDirection);
         dirs = (
@@ -85,14 +83,15 @@ const RouteSelect = props => {
 
     return (
         <Fragment>
-            <form onSubmit={handleSubmit}>
-                <select onChange={onChangeSelect}>
-                    {routeOptions}
-                </select>
-                {dirs}
-                <button className="btn" type="submit">View route</button>
-            </form>
-            <Link to="/routeinfo"><p>TEST</p></Link>
+            <select onChange={onChangeSelect}>
+                {routeOptions}
+            </select>
+            {dirs}
+            <Link to={{
+                pathname: '/routeinfo',
+                state: [{dir: routeDirection, num: selectedRouteNumber }]
+            }}
+            ><button className="btn">View route</button></Link>
         </Fragment>
     );
 };

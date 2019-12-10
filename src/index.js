@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import RouteForm from './RouteForm';
 import RouteInfo from './RouteInfo';
+import NotFound from './NotFound';
 import logo from './img/metro-transit-logo.png';
 import './index.css';
 
@@ -31,6 +32,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={App} />
         <Route path="/routeinfo" component={RouteInfo} />
+        <Route component={NotFound} />
       </Switch>
     </Router>,
     document.getElementById('root')
