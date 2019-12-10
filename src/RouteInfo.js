@@ -5,25 +5,22 @@ const parser = require('xml-js');
 
 const RouteInfo = props => {
     const { dir, num, name } = props.location.state[0];
+    const [routeStops, setRouteStops] = useState('');
 
     const directions = [
-        { 1: 'SOUTHBOUND' },
-        { 2: 'EASTBOUND' },
-        { 3: 'WESTBOUND' },
-        { 4: 'NORTHBOUND' }
+        { rNumber: '1', rName: 'SOUTHBOUND' },
+        { rNumber: '2', rName: 'EASTBOUND' },
+        { rNumber: '3', rName: 'WESTBOUND' },
+        { rNumber: '4', rName: 'NORTHBOUND' }
     ];
 
-    console.log(Object.getOwnPropertyNames(directions));
-
-    const filteredDir = directions.filter(direction => 
-        direction.key === dir
+    const directionName = directions.filter(direction => 
+        direction.rNumber === dir
     );
-
-    const [routeStops, setRouteStops] = useState('');
 
     useEffect(() => {
         getStops();
-    },[num]);
+    },[num]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const getStops = () => {
         let stops = [];
@@ -32,8 +29,7 @@ const RouteInfo = props => {
                 return response.text();
             }).then(response => {
                 return JSON.parse(parser.xml2json(response, {compact: true, spaces: 4}));
-            }).then(response => {
-                //console.log(response);  
+            }).then(response => { 
                 stops = response.ArrayOfTextValuePair.TextValuePair;
                 setRouteStops(stops);
             })
@@ -42,11 +38,8 @@ const RouteInfo = props => {
             });
     }
 
-
-    console.log(routeStops);
     let stops = null;
     if(routeStops) {
-        console.log(routeStops);
         stops = (
             <div>
                 {routeStops.map(s => {
@@ -65,9 +58,9 @@ const RouteInfo = props => {
         <>
             <BannerHeader />
             <button onClick={() => props.history.goBack()}>Back</button>
-            <p>Route Info</p>
+            <h1>Route Info</h1>
             {name.name}
-            {filteredDir}
+            {directionName[0].rName}
             {stops}
         </>
     );
