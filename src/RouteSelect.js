@@ -1,19 +1,20 @@
 import React, { useState, Fragment, useEffect } from 'react';
-import UseForceUpdate from './ForceUpdate';
+import RouteDirection from './RouteDirection';
 
 const parser = require('xml-js');
 
 const RouteSelect = props => {
     const { routes } = props;
-    
-    UseForceUpdate();
 
     const [selectedRouteName, setRouteName] = useState('');
     const [selectedRouteDirection, setRouteDirection] = useState('');
+    const [routeDirection, setDirection] = useState('');
+
+    const routeOptions = routes.map(route => <option key={route.Route._text}>{route.Description._text}</option>);
 
     //console.log(routes);
 
-    const onChangeHandler = event => {
+    const onChangeSelect = event => {
 
         setRouteName({ name: event.target.value });
 
@@ -48,23 +49,33 @@ const RouteSelect = props => {
         //console.log(selectedRouteDirection[0].text); // This logged state is one value behind the selected option
     }
 
-    const routeOptions = routes.map(route => <option key={route.Route._text}>{route.Description._text}</option>);
+    const onChangeRadio = event => {
+        setDirection(event.target.value);
+    }
 
     let dirs = null;
-    
+
     if(selectedRouteDirection) {
         console.log(selectedRouteDirection);
         dirs = (
             <div>
                 {selectedRouteDirection.map((dir, index) => {
-                    return <div key={index}>{dir.Text._text}</div>
+                    return ( 
+                        <RouteDirection
+                            id={dir.Value._text}
+                            key={dir.Value._text}
+                            value={dir.Text._text}
+                            changed={onChangeRadio}
+                        />
+                    );
                 })}
             </div>
         );
     }
+
     return (
         <Fragment>
-            <select onChange={onChangeHandler}>
+            <select onChange={onChangeSelect}>
                 {routeOptions}
             </select>
             {dirs}
