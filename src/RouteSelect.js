@@ -1,4 +1,5 @@
 import React, { useState, Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import RouteDirection from './RouteDirection';
 
 const parser = require('xml-js');
@@ -22,13 +23,16 @@ const RouteSelect = props => {
 
     useEffect(() => {
         if (selectedRouteName) {
-            getRouteDirection();
+            getRouteDirection(); // eslint-disable-line react-hooks/exhaustive-deps
         }
-      }, [selectedRouteName.name]);
+    }, [selectedRouteName.name]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const getRouteDirection = () => {
 
-        const filteredRoute = routes.filter(route => route.Description._text === selectedRouteName.name);
+        const filteredRoute = routes.filter(route => 
+            route.Description._text === selectedRouteName.name
+        );
+
         const num = filteredRoute[0].Route._text;
 
         let directions = [];
@@ -51,6 +55,11 @@ const RouteSelect = props => {
 
     const onChangeRadio = event => {
         setDirection(event.target.value);
+
+    }
+
+    const handleSubmit = event => {
+        alert(routeDirection);
     }
 
     let dirs = null;
@@ -59,12 +68,13 @@ const RouteSelect = props => {
         console.log(selectedRouteDirection);
         dirs = (
             <div>
-                {selectedRouteDirection.map((dir, index) => {
+                {selectedRouteDirection.map(dir => {
                     return ( 
                         <RouteDirection
                             id={dir.Value._text}
                             key={dir.Value._text}
-                            value={dir.Text._text}
+                            text={dir.Text._text}
+                            value={dir.Value._text}
                             changed={onChangeRadio}
                         />
                     );
@@ -75,10 +85,14 @@ const RouteSelect = props => {
 
     return (
         <Fragment>
-            <select onChange={onChangeSelect}>
-                {routeOptions}
-            </select>
-            {dirs}
+            <form onSubmit={handleSubmit}>
+                <select onChange={onChangeSelect}>
+                    {routeOptions}
+                </select>
+                {dirs}
+                <button className="btn" type="submit">View route</button>
+            </form>
+            <Link to="/routeinfo"><p>TEST</p></Link>
         </Fragment>
     );
 };
