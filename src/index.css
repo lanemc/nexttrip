@@ -1,13 +1,104 @@
-body {
+html, body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.app {
+  margin: 1rem 2rem;
+}
+
+.banner {
+  margin-bottom: 3rem;
+}
+
+.main {
+  padding-left: 1.5rem;
+}
+
+.MuiButtonBase-root,
+.MuiButton-contained.Mui-disabled {
+  display: block;
+  margin-top: 1.5rem;
+}
+
+.MuiButtonBase-root a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.RouteForm .MuiButton-containedPrimary,
+.RouteInfo .MuiButton-containedPrimary {
+  background-color: #1976d2;
+  box-shadow: none;
+}
+
+.RouteForm .MuiButton-containedPrimary:hover:not([disabled]),
+.RouteInfo .MuiButton-containedPrimary:hover:not([disabled]){
+  background-color: #1662af;
+}
+
+.RouteForm .MuiButton-containedPrimary:hover:active:not([disabled]),
+.RouteInfo .MuiButton-containedPrimary:hover:active:not([disabled]) {
+  background-color: #0b3258;
+  box-shadow: none;
+}
+
+.MuiTouchRipple-root {
+  display: none;
+}
+
+.MuiButtonBase-root:hover:not([disabled]),
+.MuiButtonBase-root a:hover:not([disabled]) {
+  text-decoration: underline;
+}
+
+.MuiButtonBase-root:active:hover:not([disabled]),
+.MuiButtonBase-root a:active:hover:not([disabled]) {
+  text-decoration: none;
+}
+
+.RouteDirections .MuiFormLabel-root.Mui-focused,
+.RouteSelect .MuiFormLabel-root.Mui-focused,
+.radio .MuiRadio-colorSecondary.Mui-checked {
+  color: #1976d2;
+}
+
+.radio .MuiIconButton-colorSecondary:hover,
+.radio .MuiRadio-colorSecondary.Mui-checked:hover {
+  background-color: rgba(0, 106, 245, 0.08);
+}
+
+.RouteDirections {
+  margin: 1.5rem 0;
+}
+
+.RouteSelect .MuiInput-underline:after {
+  border-bottom: 2px solid #1976d2;
+}
+
+.main .MuiInputLabel-shrink,
+.main .MuiSelect-select#routenames {
+  padding-left: .25rem;
+}
+
+.StopListItem {
+  align-items: center;
+  display: flex;
+  margin: .25rem 0;
+}
+
+.StopListItem .MuiSvgIcon-root {
+  margin-right: .25rem;
+}
+
+.DataLabel {
+  margin-bottom: .25rem;
 }

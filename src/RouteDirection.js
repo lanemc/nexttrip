@@ -1,11 +1,10 @@
 import React from 'react';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
 
 const RouteDirection = props => {
     return (
-        <li key={props.id} className="direction-options">
-            <input type="radio" id={props.id} name="direction-select" onChange={props.changed} value={props.value} />
-            <label htmlFor={props.id}>{props.text}</label>
-        </li>
+        <FormControlLabel className="radio" key={props.id} value={props.value} control={<Radio />} label={props.text} />
     )
 };
 
