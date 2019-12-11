@@ -26,8 +26,7 @@ describe('Fill out form and go to routing page', function() {
           })
         cy.get('.MuiIconButton-label > input').first().check()
 
-        cy.get('button').should('not.be.disabled')
-        cy.get('button').click()  
+        cy.get('button').should('not.be.disabled').click()
     })
 })
 
