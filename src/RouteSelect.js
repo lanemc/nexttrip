@@ -18,7 +18,7 @@ const RouteSelect = props => {
     const [selectedRouteDirection, setRouteDirection] = useState('');
     const [routeDirection, setDirection] = useState('');
 
-    const routeOptions = routes.map(route => <option key={route.Route._text}>{route.Description._text}</option>);
+    const routeOptions = routes.map(route => <option class="RouteOption" key={route.Route._text}>{route.Description._text}</option>);
 
     const onChangeSelect = event => {
         setRouteName({ name: event.target.value });
