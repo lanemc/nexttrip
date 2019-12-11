@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import BannerHeader from './BannerHeader';
+import Button from '@material-ui/core/Button';
 
 const parser = require('xml-js');
 
@@ -57,7 +58,7 @@ const RouteInfo = props => {
     return (
         <>
             <BannerHeader />
-            <button onClick={() => props.history.goBack()}>Back</button>
+            <Button variant="contained" color="secondary" onClick={() => props.history.goBack()}>Back</Button>
             <h1 className="pageHeading">Route Info</h1>
             {name.name}
             {directionName[0].rName}

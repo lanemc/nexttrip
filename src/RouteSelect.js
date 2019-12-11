@@ -4,6 +4,7 @@ import RouteDirection from './RouteDirection';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
 
 const parser = require('xml-js');
 
@@ -92,7 +93,7 @@ const RouteSelect = props => {
                 pathname: '/routeinfo',
                 state: [{dir: routeDirection, num: selectedRouteNumber, name: selectedRouteName }]
             }}>
-                <button className="btn" disabled={!routeDirection}>View route</button>
+                <Button variant="contained" color="primary" className="btn" disabled={!routeDirection}>View route</Button>
             </Link>
         </Fragment>
     );
