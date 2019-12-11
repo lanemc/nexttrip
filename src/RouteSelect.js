@@ -1,9 +1,12 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import RouteDirection from './RouteDirection';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
+import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 
 const parser = require('xml-js');
 
@@ -15,7 +18,7 @@ const RouteSelect = props => {
     const [selectedRouteDirection, setRouteDirection] = useState('');
     const [routeDirection, setDirection] = useState('');
 
-    const routeOptions = routes.map(route => <option key={route.Route._text}>{route.Description._text}</option>);
+    const routeOptions = routes.map(route => <option class="RouteOption" key={route.Route._text}>{route.Description._text}</option>);
 
     const onChangeSelect = event => {
         setRouteName({ name: event.target.value });
@@ -60,10 +63,10 @@ const RouteSelect = props => {
     let directions = null;
     if(selectedRouteDirection) {
         directions = (
-            <div>
-                <FormControl component="fieldset" className="">
-                    <FormLabel component="legend">Select route direction</FormLabel>
-                    <RadioGroup aria-label="gender" name="gender1" onChange={onChangeRadio}>
+            <div className="RouteDirections">
+                <FormControl component="fieldset">
+                    <FormLabel component="legend">Select direction</FormLabel>
+                    <RadioGroup aria-label="Route directions" name="directions" onChange={onChangeRadio}>
                         {selectedRouteDirection.map(direction => {
                             return (
                                 <RouteDirection
@@ -81,20 +84,27 @@ const RouteSelect = props => {
     }
 
     return (
-        <Fragment>
-            <select onChange={onChangeSelect}>
-                {routeOptions}
-            </select>
-
-                    {directions}
-            
-            <Link to={{
+        <div className="RouteForm">
+            <FormControl className="RouteSelect">
+                <InputLabel htmlFor="routenames">Select a route</InputLabel>
+                <Select 
+                    native
+                    onChange={onChangeSelect}
+                    inputProps={{
+                        name: 'routenames',
+                        id: 'routenames'
+                    }}
+                >
+                    <option value="" default />
+                    {routeOptions}
+                </Select>
+            </FormControl>
+            {directions}
+            <Button variant="contained" color="primary" disabled={!routeDirection}>            <Link to={{
                 pathname: '/routeinfo',
                 state: [{dir: routeDirection, num: selectedRouteNumber, name: selectedRouteName }]
-            }}>
-                <button className="btn" disabled={!routeDirection}>View route</button>
-            </Link>
-        </Fragment>
+            }}>View stops</Link></Button>
+        </div>
     );
 };
 
