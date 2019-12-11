@@ -18,7 +18,7 @@ const RouteSelect = props => {
     const [selectedRouteDirection, setRouteDirection] = useState('');
     const [routeDirection, setDirection] = useState('');
 
-    const routeOptions = routes.map(route => <option className="RouteOption" key={route.Route._text}>{route.Description._text}</option>);
+    const routeOptions = routes.map(route => <option class="RouteOption" key={route.Route._text}>{route.Description._text}</option>);
 
     const onChangeSelect = event => {
         setRouteName({ name: event.target.value });
@@ -63,10 +63,10 @@ const RouteSelect = props => {
     let directions = null;
     if(selectedRouteDirection) {
         directions = (
-            <div>
-                <FormControl component="fieldset" className="">
-                    <FormLabel component="legend">Select route direction</FormLabel>
-                    <RadioGroup aria-label="gender" name="gender1" onChange={onChangeRadio}>
+            <div className="RouteDirections">
+                <FormControl component="fieldset">
+                    <FormLabel component="legend">Select direction</FormLabel>
+                    <RadioGroup aria-label="Route directions" name="directions" onChange={onChangeRadio}>
                         {selectedRouteDirection.map(direction => {
                             return (
                                 <RouteDirection
