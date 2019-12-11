@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import BannerHeader from './BannerHeader';
 import Button from '@material-ui/core/Button';
+import ScheduleOutlined from '@material-ui/icons/ScheduleOutlined';
 
 const parser = require('xml-js');
 
@@ -44,11 +45,14 @@ const RouteInfo = props => {
         stops = (
             <div>
                 {routeStops.map(s => {
-                    return ( 
+                    return (
+                        <>
                         <li
+                            className="StopListItem"
                             id={s.Value._text}
                             key={s.Value._text}
-                        >{s.Text._text}</li>
+                        ><ScheduleOutlined /> {s.Text._text}</li>
+                        </>
                     );
                 })}
             </div>
@@ -56,14 +60,21 @@ const RouteInfo = props => {
     }
 
     return (
-        <>
+        <div className="RouteInfo app">
             <BannerHeader />
-            <Button variant="contained" color="secondary" onClick={() => props.history.goBack()}>Back</Button>
-            <h1 className="pageHeading">Route Info</h1>
-            {name.name}
-            {directionName[0].rName}
-            {stops}
-        </>
+            <div className="main">
+                <Button variant="contained" color="primary" onClick={() => props.history.goBack()}>Back</Button>
+                <h1 className="pageHeading">Route Info</h1>
+                <div className="data">
+                    <h3 className="DataLabel">Route name</h3>
+                    <div>{name.name}</div>
+                    <h3 className="DataLabel">Route direction</h3>
+                    <div>{directionName[0].rName}</div>
+                    <h3 className="DataLabel">Stops</h3>
+                    <div>{stops}</div>
+                </div>
+            </div>
+        </div>
     );
 };
 

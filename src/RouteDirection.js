@@ -4,7 +4,7 @@ import Radio from '@material-ui/core/Radio';
 
 const RouteDirection = props => {
     return (
-        <FormControlLabel key={props.id} value={props.value} control={<Radio />} label={props.text} />
+        <FormControlLabel className="radio" key={props.id} value={props.value} control={<Radio />} label={props.text} />
     )
 };
 
