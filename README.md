@@ -16,5 +16,6 @@ You will also see any lint errors in the console.
 
 ### `yarn test`
 
+Run this command while the app is running. <br />
 This launches the Cypress test runner.<br />
 When the browser opens, click on the App.spec.js file to run tests.
